@@ -1,0 +1,81 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = 'Your application' %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+    <h2 class="govuk-heading-s govuk-!-margin-top-6 govuk-!-margin-bottom-2">Application incomplete</h2>
+    <p class="govuk-!-margin-bottom-6">You've completed 0 of 3 sections.</p>
+
+    <h2 class="govuk-heading-m">About you</h2>
+
+    {{ govukTaskList({
+      idPrefix: "about-you",
+      items: [
+        {
+          title: {
+            text: "Personal details"
+          },
+          href: "/application/edit-personal-details/name",
+          status: {
+            tag: {
+              text: data.personalDetails.status or "Not yet started"
+            }
+          }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m govuk-!-margin-top-6">Juggling experience</h2>
+
+    {{ govukTaskList({
+      idPrefix: "juggling-experience",
+      items: [
+        {
+          title: {
+            text: "Juggling experience"
+          },
+          href: "/application/edit-experience/juggling-balls",
+          status: {
+            tag: {
+              text: data.experience.status or "Not yet started",
+              classes: "govuk-tag--none"
+            }
+          }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m govuk-!-margin-top-6">Evidence</h2>
+
+    {{ govukTaskList({
+      idPrefix: "evidence",
+      items: [
+        {
+          title: {
+            text: "Evidence"
+          },
+          href: "/application/edit-evidence/has-evidence",
+          status: {
+            tag: {
+              text: "Not yet started",
+              classes: "govuk-tag--blue"
+            }
+          }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m govuk-!-margin-top-6">Review application</h2>
+    {{ govukButton({
+      text: "Review and send",
+      href: "/application/check"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

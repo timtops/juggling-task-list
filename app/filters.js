@@ -8,3 +8,10 @@ const addFilter = govukPrototypeKit.views.addFilter
 
 // Add your filters here
 
+addFilter('statusColour', status => {
+    switch(status) {
+        case 'Completed': return 'solid'
+        case 'Incomplete': return 'blue'
+        default: return 'grey'
+    }
+})

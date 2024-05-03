@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = 'Check details and confirm your answers' %}
+
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "/application"
+}) }}
+{% endblock %}
+
+{% set addressObject %}
+  <ul class="govuk-list">
+    <li>{{ data.personalDetails.address.line1 }}</li>
+    {% if data.personalDetails.address.line2 %}
+      <li>{{ data.personalDetails.address.line2 }}</li>
+    {% endif %}
+    <li>{{ data.personalDetails.address.town }}</li>
+    {% if data.personalDetails.address.county %}
+      <li>{{ data.personalDetails.address.county }}</li>
+    {% endif %}
+    <li>{{ data.personalDetails.address.postcode }}</li>
+  </ul>
+{% endset %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Personal details</span>
+    <h1 class="govuk-heading-l">{{pageName}}</h1>
+
+    {{data | log }}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Your name"
+          },
+          value: {
+            text: data.personalDetails.firstName + ' ' + data.personalDetails.lastName
+          },
+          actions: {
+            items: [
+              {
+                href: "/application/edit-personal-details/name",
+                text: "Change",
+                visuallyHiddenText: "Your name"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Your phone number"
+          },
+          value: {
+            text: data.personalDetails.telephone
+          },
+          actions: {
+            items: [
+              {
+                href: "/application/edit-personal-details/telephone",
+                text: "Change",
+                visuallyHiddenText: "Your phone number"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Your address"
+          },
+          value: {
+            html: addressObject
+          },
+          actions: {
+            items: [
+              {
+                href: "/application/edit-personal-details/address",
+                text: "Change",
+                visuallyHiddenText: "Your address"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "personalDetails[status]",
+      fieldset: {
+        legend: {
+          text: "Have you completed this section?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      hint: { text: "You can still make changes to a completed section"},
+      items: [
+        {
+          value: "Completed",
+          text: "Yes, I've completed this section"
+        },
+        {
+          value: "Incomplete",
+          text: "No, I'll come back to it later"
+        }
+      ],
+      value: data.personalDetails.status
+    }) }}
+    
+    {{ govukButton({
+      text: "Save and continue"
+    }) }}
+  </form>
+  </div>
+</div>
+
+{% endblock %}

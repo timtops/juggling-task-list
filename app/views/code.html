@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = 'Check your email' %}
+
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p>A confirmation code has been sent to {{data.new.emailAddress}}.</p>
+
+    <p>Check your span and trash folder if you cannot find the email.</p>
+
+    <p>You can also <a href="/new">request another confirmation code</a>.</p>
+    
+    <form novalidate method="post">
+    
+        {{ govukInput({
+          id: "[new][code]",
+          name: "[new][code]",
+          label: {
+            text: "Confirmation code",
+            classes: "govuk-label--s"
+          },
+          value: data.new.code,
+          classes: "govuk-input--width-5"
+        }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

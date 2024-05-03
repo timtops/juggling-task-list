@@ -1,0 +1,45 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = 'Your phone number' %}
+
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Personal details</span>
+    <form novalidate method="post">
+
+      {{ data | log }}
+    
+      {{ govukInput({
+        id: "personalDetails[telephone]",
+        name: "personalDetails[telephone]",
+        label: {
+          text: pageName,
+          isPageHeading: true,
+          classes: "govuk-label--l"
+        },
+        hint: {
+          text: "This will only be used to contact you about your application"
+        },
+        classes: "govuk-input--width-20",
+        value: data.personalDetails.telephone
+      }) }}
+
+      {{ govukButton({
+        text: "Save and continue"
+      }) }}
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
