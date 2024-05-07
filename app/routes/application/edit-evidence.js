@@ -7,7 +7,6 @@ module.exports = router => {
             res.redirect('/application/edit-evidence/upload')
         } else {
             res.redirect('/application/edit-evidence/check')
-
         }
     })
 
@@ -32,11 +31,9 @@ module.exports = router => {
 
         // Storing that file in memory
         
-        //    req.session.data.evidence.files[uuidv4()] = {
-        //        filename: nextFile
-        //    }
-        
-
+            req.session.data.evidence.files[uuidv4()] = {
+                filename: nextFile
+            }
             res.redirect('/application/edit-evidence/check-files')
     })
 
@@ -46,6 +43,5 @@ module.exports = router => {
         } else {
             res.redirect('/application/edit-evidence/check')
         }
-        
 })
 }
