@@ -30,10 +30,11 @@ module.exports = router => {
         let nextFile = files[filesCount]
 
         // Storing that file in memory
-        
+        if(nextFile) {
             req.session.data.evidence.files[uuidv4()] = {
                 filename: nextFile
             }
+        }
             res.redirect('/application/edit-evidence/check-files')
     })
 

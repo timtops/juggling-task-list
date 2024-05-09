@@ -19,9 +19,11 @@
 
     <h1 class="govuk-heading-l">{{pageName}}</h1>
     <h2 class="govuk-heading-m">Files added</h2>
+    <p>Uploaded files go here</p>
 
     <form method="post">
     
+      {{ data | log }}
 
       {{ govukRadios({
         name: "evidence[addMore]",
