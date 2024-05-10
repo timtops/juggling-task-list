@@ -44,5 +44,23 @@ module.exports = router => {
         } else {
             res.redirect('/application/edit-evidence/check')
         }
-})
+    })
+
+    router.get('/application/edit-evidence/:fileId/delete', (req, res) => {
+        let file = req.session.data.evidence.files[req.params.fileId]
+        res.render('application/edit-evidence/delete',{file})
+    })
+
+    router.post('/application/edit-evidence/:fileId/delete', (req, res) => {
+        delete req.session.data.evidence.files[req.params.fileId]
+        let filesCount = _.size(req.session.data.evidence.files)
+
+        req.flash('success', 'File deleted')
+
+        if(filesCount > 0) {
+            res.redirect('/application/edit-evidence/check-files')
+        } else {
+            res.redirect('/application/edit-evidence/has-evidence')
+        }
+    })
 }
